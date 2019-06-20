@@ -655,14 +655,14 @@ GnssAdapter::setSuplHostServer(const char* server, int port)
         int32_t length = -1;
         const char noHost[] = "NONE";
 
-        locErr = LOCATION_ERROR_INVALID_PARAMETER;
-
         if ((NULL == server) || (server[0] == 0) ||
                 (strncasecmp(noHost, server, sizeof(noHost)) == 0)) {
             serverUrl[0] = '\0';
             length = 0;
         } else if (port > 0) {
             length = snprintf(serverUrl, sizeof(serverUrl), "%s:%u", server, port);
+        } else {
+            locErr = LOCATION_ERROR_INVALID_PARAMETER;
         }
 
         if (length >= 0 && strncasecmp(getServerUrl().c_str(),
