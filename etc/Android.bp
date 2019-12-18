@@ -1,0 +1,23 @@
+
+package {
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "hardware_qcom_sdm845_gps_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-BSD
+    default_applicable_licenses: ["hardware_qcom_sdm845_gps_license"],
+}
+
+prebuilt_etc {
+
+    name: "gps.conf",
+    vendor: true,
+    src: "gps.conf",
+}
+
+prebuilt_etc {
+
+    name: "flp.conf",
+    vendor: true,
+    src: "flp.conf",
+}
