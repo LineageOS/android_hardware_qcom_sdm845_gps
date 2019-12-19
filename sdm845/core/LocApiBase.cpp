@@ -264,6 +264,9 @@ void LocApiBase::handleEngineUpEvent()
 
 void LocApiBase::handleEngineDownEvent()
 {
+    // This will take care of renegotiating the loc handle
+    mMsgTask->sendMsg(new LocSsrMsg(this));
+
     // loop through adapters, and deliver to all adapters.
     TO_ALL_LOCADAPTERS(mLocAdapters[i]->handleEngineDownEvent());
 }
