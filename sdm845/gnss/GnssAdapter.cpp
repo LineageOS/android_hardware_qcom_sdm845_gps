@@ -1374,8 +1374,8 @@ LocationError
 GnssAdapter::gnssSvTypeConfigUpdate()
 {
     LocationError err = LOCATION_ERROR_GENERAL_FAILURE;
-    LOC_LOGd("constellations blacklisted 0x%" PRIx64 ", enabled 0x%" PRIx64,
-             mGnssSvTypeConfig.blacklistedSvTypesMask, mGnssSvTypeConfig.enabledSvTypesMask);
+    LOC_LOGd("size %zu constellations blacklisted 0x%" PRIx64 ", enabled 0x%" PRIx64,
+             mGnssSvTypeConfig.size, mGnssSvTypeConfig.blacklistedSvTypesMask, mGnssSvTypeConfig.enabledSvTypesMask);
 
     if (mGnssSvTypeConfig.size == sizeof(mGnssSvTypeConfig)) {
         GnssSvIdConfig blacklistConfig = {};
@@ -1412,7 +1412,6 @@ GnssAdapter::gnssSvTypeConfigUpdate()
             }
         }
     } else {
-        LOC_LOGE("Invalid GnssSvTypeConfig size");
         err = LOCATION_ERROR_SUCCESS;
     }
 
