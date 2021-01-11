@@ -27,8 +27,8 @@
  *
  */
 
-#ifndef FLP_API_CLINET_H
-#define FLP_API_CLINET_H
+#ifndef BATCHING_API_CLINET_H
+#define BATCHING_API_CLINET_H
 
 #include <android/hardware/gnss/1.0/IGnssBatching.h>
 #include <android/hardware/gnss/1.0/IGnssBatchingCallback.h>
@@ -36,7 +36,6 @@
 
 #include <LocationAPIClientBase.h>
 
-#define FLP_CONF_FILE "/vendor/etc/flp.conf"
 
 namespace android {
 namespace hardware {
@@ -44,19 +43,19 @@ namespace gnss {
 namespace V1_0 {
 namespace implementation {
 
-class FlpAPIClient : public LocationAPIClientBase
+class BatchingAPIClient : public LocationAPIClientBase
 {
 public:
-    FlpAPIClient(const sp<IGnssBatchingCallback>& callback);
-    ~FlpAPIClient();
-    int flpGetBatchSize();
-    int flpStartSession(const IGnssBatching::Options& options);
-    int flpUpdateSessionOptions(const IGnssBatching::Options& options);
-    int flpStopSession();
-    void flpGetBatchedLocation(int last_n_locations);
-    void flpFlushBatchedLocations();
+    BatchingAPIClient(const sp<IGnssBatchingCallback>& callback);
+    ~BatchingAPIClient();
+    int getBatchSize();
+    int startSession(const IGnssBatching::Options& options);
+    int updateSessionOptions(const IGnssBatching::Options& options);
+    int stopSession();
+    void getBatchedLocation(int last_n_locations);
+    void flushBatchedLocations();
 
-    inline LocationCapabilitiesMask flpGetCapabilities() { return mLocationCapabilitiesMask; }
+    inline LocationCapabilitiesMask getCapabilities() { return mLocationCapabilitiesMask; }
 
     // callbacks
     void onCapabilitiesCb(LocationCapabilitiesMask capabilitiesMask) final;
@@ -74,4 +73,4 @@ private:
 }  // namespace gnss
 }  // namespace hardware
 }  // namespace android
-#endif // FLP_API_CLINET_H
+#endif // BATCHING_API_CLINET_H
