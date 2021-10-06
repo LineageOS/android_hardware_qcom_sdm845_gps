@@ -27,8 +27,8 @@
  *
  */
 
-#ifndef GNSS_MEASUREMENT_API_CLINET_H
-#define GNSS_MEASUREMENT_API_CLINET_H
+#ifndef MEASUREMENT_API_CLINET_H
+#define MEASUREMENT_API_CLINET_H
 
 
 #include <android/hardware/gnss/1.0/IGnssMeasurement.h>
@@ -45,32 +45,26 @@ namespace implementation {
 using ::android::hardware::gnss::V1_0::IGnssMeasurement;
 using ::android::sp;
 
-class GnssMeasurementAPIClient : public LocationAPIClientBase
+class MeasurementAPIClient : public LocationAPIClientBase
 {
 public:
-    GnssMeasurementAPIClient();
-    virtual ~GnssMeasurementAPIClient();
-    GnssMeasurementAPIClient(const GnssMeasurementAPIClient&) = delete;
-    GnssMeasurementAPIClient& operator=(const GnssMeasurementAPIClient&) = delete;
+    MeasurementAPIClient();
+    virtual ~MeasurementAPIClient();
+    MeasurementAPIClient(const MeasurementAPIClient&) = delete;
+    MeasurementAPIClient& operator=(const MeasurementAPIClient&) = delete;
 
     // for GpsMeasurementInterface
-    Return<IGnssMeasurement::GnssMeasurementStatus> gnssMeasurementSetCallback(
+    Return<IGnssMeasurement::GnssMeasurementStatus> measurementSetCallback(
             const sp<IGnssMeasurementCallback>& callback);
-    void gnssMeasurementClose();
+    void measurementClose();
 
     // callbacks we are interested in
-    void onCapabilitiesCb(LocationCapabilitiesMask capabilitiesMask) final;
     void onGnssMeasurementsCb(GnssMeasurementsNotification gnssMeasurementsNotification) final;
 
 private:
-    pthread_mutex_t mLock;
-    pthread_cond_t mCond;
-
     sp<IGnssMeasurementCallback> mGnssMeasurementCbIface;
 
-    LocationCapabilitiesMask mLocationCapabilitiesMask;
-
-    LocationOptions mLocationOptions;
+    bool mTracking;
 };
 
 }  // namespace implementation
@@ -78,4 +72,4 @@ private:
 }  // namespace gnss
 }  // namespace hardware
 }  // namespace android
-#endif // GNSS_MEASUREMENT_API_CLINET_H
+#endif // MEASUREMENT_API_CLINET_H
